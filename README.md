@@ -1,5 +1,5 @@
 # Barrett 950 software for Teensy 3.2 and Nextion NX4832T035
- (c) Dr. Daniel Fernández, EA3HRU (daniel.fdez.mart@gmail.com). 
+ (c) Dr. Daniel Fernández, EA3HRU
  
  Notes:
   - Serial is the USB serial port for radio control from the PC
