@@ -3,7 +3,7 @@
  
  Notes:
   - Serial is the USB serial port for radio control from the PC
-  - Serial1 is the serial port of the radio
+  - Serial1 is the serial port of the radio. You need a MAX232 level shifter or equivalent.
   - Serial2 is the serial port for the Nextion touchscreen
     - Set NexHardware.cpp / nexInit() speed to 115200
     - Set Serial2 as serial port in NexConfig.h
