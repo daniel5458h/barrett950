@@ -1,4 +1,4 @@
-# Barrett 950 software for Teensy 3.2 and Nextion NX4832T035
+# Barrett 950 software for Teensy 3.2 and Nextion NX4832T035 touchscreen
  (c) Dr. Daniel Fernández, EA3HRU
  
  Notes:
