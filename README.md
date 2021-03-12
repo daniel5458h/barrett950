@@ -2,8 +2,11 @@
 (c) Dr. Daniel Fernández, EA3HRU
  
 Notes:
+  * You need a 5V-tolerant Teensy, like the Teensy 3.2.
+  * Teensy pin 2 goes to the PTT Out / Receiver Cross Mute Out on the pin DB25 pin 21 of the radio  
   * Serial is the USB serial port for radio control from the PC
-  * Serial1 is the serial port of the radio. You need a MAX232 level shifter or equivalent.
+  * Serial1 is the serial port of the radio. 
+    * You need a MAX232 level shifter or equivalent.
   * Serial2 is the serial port for the Nextion touchscreen
     * Set NexHardware.cpp / nexInit() speed to 115200
     * Set Serial2 as serial port in NexConfig.h 
