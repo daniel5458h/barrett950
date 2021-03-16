@@ -29,7 +29,7 @@
 // * SQL enables the sradio squelch among OFF, RF and VOICE.
 // * PWR sets the radio power HIGH or LOW.
 // * PROG allows channel programming and split operation. When pressed for the first time, its value changes from OFF to RXF? and the the RX frequency should be set by the user. When pressed again, it asks for the TXF? and the TX frequency should be set. When pressed for a thrid time, it displays CHN? and the channel number should be set.
-// * BAND allows for setting the default channels 441~450, currently programmed with each ham radio band lowest frequency.
+// * BAND allows selecting the channels 441~450. You can program them with with your favorite frequencies in each band and use the button as a band switch.
 // * TUNE enables the external tuner.
 // * DIM allows reducing the screen brigthness. It cycles from MAX, to AUTO and to LOW. AUTO will use MAX brigthness until some time has passed, and then it goes to LOW. If there is screen activity, it will return to MAX.
 //
@@ -51,6 +51,7 @@
 #define DIMLOW 5            // Low backligth level
 #define DIMTIMER 30000      // Timer to get the backligth low in auto mode
 #define UARTRADIOSPEED 9900 // Set the radio usb speed (typ 9600)
+#define UNDIMONPTT false    // Set to true to undim backligth on PTT IN DIM AUTO mode, otherwise, set to false
 
 bool XON=1;
 bool freeFrequency=false;
@@ -422,6 +423,8 @@ long getRXFrequency(void)
   sprintf(buff, "IR");
   writeRadioSerialLine(buff);
   int read = readRadioSerialLine(buff,1);
+
+  if(!strcmp(buff,"OK")) return 0;   // Empty channel returns just OK
   if(read!=8)
   {
     printerror(1, "ERROR: Not enough data received when reading the RX frequency.\n");
@@ -447,6 +450,8 @@ long getTXFrequency(void)
   sprintf(buff, "IT");
   writeRadioSerialLine(buff);
   int read = readRadioSerialLine(buff,1);
+
+  if(!strcmp(buff,"OK")) return 0;   // Empty channel returns just OK
   if(read!=8)
   {
     printerror(1, "ERROR: Not enough data received when reading the TX frequency.\n");
@@ -1426,13 +1431,13 @@ void loop()
   if(PTT && !PTT_old) { // PTT pressed
     digitalWrite(13,true);
     printFrequency(TXfrequency,false);
-    screenTouched();
+    if(UNDIMONPTT) screenTouched();
     printinfo(1,"PTT is ON");
   }
   if(!PTT && PTT_old) { // PTT released
     printFrequency(RXfrequency,true);
     digitalWrite(13,false);
-    screenTouched();
+    if(UNDIMONPTT) screenTouched();
     printinfo(1,"PTT is OFF");
   }
   PTT_old=PTT;
